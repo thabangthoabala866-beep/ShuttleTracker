@@ -1,7 +1,7 @@
 # ShuttleTracker 🚍
 
 ## Project Description
-ShuttleTracker is a mobile bus tracking application designed for students and staff to monitor shuttle services between campuses (Bellville and D6). The app provides real-time updates on bus locations, arrival times, and route statuses, ensuring reliable transport information and improving campus mobility.
+ShuttleTracker is a mobile bus tracking application and webpage designed for students and staff to monitor shuttle services between campuses (Bellville and D6). The app provides real-time updates on bus locations, arrival times, and route statuses, ensuring reliable transport information and improving campus mobility.
 
 ## Objectives
 - Provide a **real-time bus tracking interface** with map visualization.
