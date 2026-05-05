@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up - CPUT ShuttleTracker{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <i class="fas fa-user-plus"></i>
+            <h1>Create Account</h1>
+            <p>Join CPUT's Shuttle Tracking System</p>
+        </div>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST" class="auth-form">
+            <div class="form-group">
+                <label for="student_number">
+                    <i class="fas fa-id-card"></i> Student Number
+                </label>
+                <input type="text" id="student_number" name="student_number" required 
+                       placeholder="Enter your student number">
+            </div>
+            
+            <div class="form-group">
+                <label for="full_name">
+                    <i class="fas fa-user"></i> Full Name
+                </label>
+                <input type="text" id="full_name" name="full_name" required 
+                       placeholder="Enter your full name">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">
+                    <i class="fas fa-envelope"></i> Email Address
+                </label>
+                <input type="email" id="email" name="email" required 
+                       placeholder="student@mycput.ac.za">
+            </div>
+            
+            <div class="form-group">
+                <label for="campus">
+                    <i class="fas fa-university"></i> Primary Campus
+                </label>
+                <select id="campus" name="campus" required>
+                    <option value="">Select your campus</option>
+                    {% for campus in campuses %}
+                    <option value="{{ campus.code }}">{{ campus.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">
+                    <i class="fas fa-lock"></i> Password
+                </label>
+                <input type="password" id="password" name="password" required 
+                       placeholder="Minimum 8 characters">
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm_password">
+                    <i class="fas fa-lock"></i> Confirm Password
+                </label>
+                <input type="password" id="confirm_password" name="confirm_password" required 
+                       placeholder="Confirm your password">
+            </div>
+            
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-user-plus"></i> Sign Up
+            </button>
+        </form>
+        
+        <div class="auth-footer">
+            <p>Already have an account? <a href="{{ url_for('login') }}">Log In</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
