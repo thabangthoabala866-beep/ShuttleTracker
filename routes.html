@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Routes - CPUT ShuttleTracker{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/routes.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="routes-container">
+    <div class="routes-header">
+        <h1><i class="fas fa-route"></i> CPUT Shuttle Routes</h1>
+        <p>All inter-campus shuttle routes connecting our 6 campuses</p>
+    </div>
+    
+    <div class="campus-filter">
+        <label>Filter by Campus:</label>
+        <select id="routeCampusFilter" onchange="filterRoutes()">
+            <option value="">All Routes</option>
+        </select>
+    </div>
+    
+    <div class="routes-grid" id="routesGrid">
+        {% for route in routes %}
+        <div class="route-card" data-origin="{{ route.origin_campus.code }}" data-dest="{{ route.destination_campus.code }}">
+            <div class="route-header">
+                <span class="route-name">{{ route.name }}</span>
+                <span class="duration-badge">
+                    <i class="fas fa-clock"></i> {{ route.duration_minutes }} min
+                </span>
+            </div>
+            
+            <div class="route-path">
+                <div class="campus-info origin">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <strong>{{ route.origin_campus.name }}</strong>
+                </div>
+                <div class="route-line">
+                    <div class="line"></div>
+                    <i class="fas fa-chevron-right"></i>
+                    <div class="line"></div>
+                </div>
+                <div class="campus-info destination">
+                    <i class="fas fa-flag-checkered"></i>
+                    <strong>{{ route.destination_campus.name }}</strong>
+                </div>
+            </div>
+            
+            <div class="route-details">
+                <div class="detail-item">
+                    <i class="fas fa-bus"></i>
+                    <span>{{ route.buses|length }} active buses</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-stop"></i>
+                    <span>{{ route.stops|length }} stops</span>
+                </div>
+            </div>
+            
+            <button class="btn-primary" onclick="viewRouteBuses({{ route.id }})">
+                <i class="fas fa-search"></i> View Active Buses
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Populate campus filter dropdown
+document.addEventListener('DOMContentLoaded', function() {
+    const filter = document.getElementById('routeCampusFilter');
+    const campuses = new Set();
+    document.querySelectorAll('.route-card').forEach(card => {
+        campuses.add(card.dataset.origin);
+        campuses.add(card.dataset.dest);
+    });
+    campuses.forEach(campus => {
+        const option = document.createElement('option');
+        option.value = campus;
+        option.textContent = campus;
+        filter.appendChild(option);
+    });
+});
+
+function filterRoutes() {
+    const selected = document.getElementById('routeCampusFilter').value;
+    document.querySelectorAll('.route-card').forEach(card => {
+        if (!selected || card.dataset.origin === selected || card.dataset.dest === selected) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+function viewRouteBuses(routeId) {
+    window.location.href = `/dashboard?route=${routeId}`;
+}
+</script>
+{% endblock %}
