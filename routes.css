@@ -1,0 +1,176 @@
+/* ===== Routes Page Styles ===== */
+
+.routes-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.routes-header {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+
+.routes-header h1 {
+    color: var(--cput-blue);
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.routes-header p {
+    color: var(--medium-gray);
+}
+
+.campus-filter {
+    background: var(--white);
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.campus-filter label {
+    font-weight: 600;
+    color: var(--dark-gray);
+    white-space: nowrap;
+}
+
+.campus-filter select {
+    flex: 1;
+    padding: 10px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    max-width: 300px;
+}
+
+.routes-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.route-card {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.route-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.route-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.route-name {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--cput-blue);
+}
+
+.duration-badge {
+    padding: 5px 15px;
+    background: rgba(0, 51, 102, 0.1);
+    border-radius: 20px;
+    color: var(--cput-blue);
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.route-path {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: var(--light-gray);
+    border-radius: 10px;
+}
+
+.campus-info {
+    flex: 1;
+    text-align: center;
+}
+
+.campus-info i {
+    display: block;
+    font-size: 1.5em;
+    margin-bottom: 8px;
+    color: var(--cput-blue);
+}
+
+.campus-info strong {
+    font-size: 0.9em;
+}
+
+.route-line {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--medium-gray);
+}
+
+.route-line .line {
+    width: 40px;
+    height: 2px;
+    background: var(--medium-gray);
+}
+
+.route-details {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--light-gray);
+    border-radius: 8px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--medium-gray);
+    font-size: 0.9em;
+}
+
+.detail-item i {
+    color: var(--cput-blue);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .route-path {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .route-line {
+        transform: rotate(90deg);
+    }
+    
+    .route-details {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .campus-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .campus-filter select {
+        max-width: none;
+    }
+}
