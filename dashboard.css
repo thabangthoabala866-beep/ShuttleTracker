@@ -1,0 +1,236 @@
+/* ===== Dashboard Styles ===== */
+
+.dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-header h1 {
+    color: var(--cput-blue);
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+.dashboard-header .subtitle {
+    color: var(--medium-gray);
+    font-size: 0.95em;
+}
+
+.campus-selector select {
+    padding: 12px 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    background: var(--white);
+    cursor: pointer;
+    transition: var(--transition);
+    min-width: 220px;
+}
+
+.campus-selector select:focus {
+    outline: none;
+    border-color: var(--cput-blue);
+    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+}
+
+/* Bus Grid */
+.bus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 25px;
+}
+
+/* Bus Cards */
+.bus-card {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.bus-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+.bus-card.status-on_time::before { background: var(--success); }
+.bus-card.status-delayed::before { background: var(--warning); }
+.bus-card.status-early::before { background: var(--info); }
+.bus-card.status-out_of_service::before { background: var(--danger); }
+
+.bus-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.bus-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.bus-number {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: var(--cput-blue);
+    display: block;
+}
+
+.driver-name {
+    font-size: 0.85em;
+    color: var(--medium-gray);
+}
+
+.bus-route-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: var(--light-gray);
+    border-radius: 8px;
+}
+
+.route-stop {
+    flex: 1;
+    text-align: center;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.route-stop i {
+    color: var(--cput-blue);
+    margin-right: 5px;
+}
+
+.route-arrow {
+    color: var(--medium-gray);
+}
+
+.bus-progress {
+    margin-bottom: 15px;
+}
+
+.current-location,
+.next-stop {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+}
+
+.current-location i { color: var(--success); }
+.next-stop i { color: var(--warning); }
+
+.bus-capacity {
+    margin-bottom: 15px;
+}
+
+.capacity-bar {
+    height: 6px;
+    background: var(--light-gray);
+    border-radius: 3px;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.capacity-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.capacity-fill.empty { background: var(--success); }
+.capacity-fill.moderate { background: var(--warning); }
+.capacity-fill.full { background: var(--danger); }
+
+.capacity-text {
+    font-size: 0.85em;
+    color: var(--medium-gray);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.bus-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-track {
+    flex: 2;
+    padding: 10px;
+    background: var(--cput-blue);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-track:hover {
+    background: var(--cput-light-blue);
+}
+
+.btn-info {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    color: var(--cput-blue);
+    border: 2px solid var(--cput-blue);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-info:hover {
+    background: var(--cput-blue);
+    color: var(--white);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .dashboard-header h1 {
+        font-size: 1.5em;
+    }
+    
+    .campus-selector select {
+        width: 100%;
+    }
+    
+    .bus-grid {
+        grid-template-columns: 1fr;
+    }
+}
