@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Bus {{ bus.bus_number }} - CPUT ShuttleTracker{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bus-detail.css') }}">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+{% endblock %}
+
+{% block content %}
+<div class="bus-detail">
+    <a href="{{ url_for('dashboard') }}" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+    
+    <div class="bus-header">
+        <div>
+            <h1><i class="fas fa-bus"></i> Bus {{ bus.bus_number }}</h1>
+            <p class="route-name">{{ route.name }}</p>
+        </div>
+        <span class="status-badge status-{{ bus.status }}">
+            {{ bus.status.replace('_', ' ').title() }}
+        </span>
+    </div>
+    
+    <div class="route-info">
+        <div class="route-path">
+            <div class="campus-info">
+                <i class="fas fa-map-marker-alt"></i>
+                <strong>{{ route.origin_campus.name }}</strong>
+            </div>
+            <div class="route-arrow">
+                <span>{{ route.duration_minutes }} min</span>
+                <i class="fas fa-arrow-right"></i>
+            </div>
+            <div class="campus-info">
+                <i class="fas fa-flag-checkered"></i>
+                <strong>{{ route.destination_campus.name }}</strong>
+            </div>
+        </div>
+    </div>
+    
+    <div class="map-container">
+        <div id="busMap"></div>
+    </div>
+    
+    <div class="stops-list">
+        <h3><i class="fas fa-map-pin"></i> Route Stops & ETAs</h3>
+        {% for stop in stops %}
+        <div class="stop-item {% if stop.name == bus.next_stop %}current{% endif %}">
+            <div class="stop-marker">
+                {% if stop.name == bus.current_stop %}
+                <i class="fas fa-bus"></i>
+                {% elif stop.name == bus.next_stop %}
+                <i class="fas fa-circle" style="color: #28a745;"></i>
+                {% else %}
+                <i class="fas fa-circle"></i>
+                {% endif %}
+            </div>
+            <div class="stop-details">
+                <strong>{{ stop.name }}</strong>
+                <span class="eta">ETA: Calculating...</span>
+            </div>
+            {% if stop.name == bus.next_stop %}
+            <span class="next-stop-badge">NEXT STOP</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="bus-stats">
+        <div class="stat">
+            <i class="fas fa-users"></i>
+            <div class="stat-value">{{ bus.passenger_count }}/{{ bus.capacity }}</div>
+            <div class="stat-label">Passengers</div>
+        </div>
+        <div class="stat">
+            <i class="fas fa-user-tie"></i>
+            <div class="stat-value">{{ bus.driver_name }}</div>
+            <div class="stat-label">Driver</div>
+        </div>
+        <div class="stat">
+            <i class="fas fa-clock"></i>
+            <div class="stat-value" id="lastUpdate">Just now</div>
+            <div class="stat-label">Last Updated</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{{ url_for('static', filename='js/bus-detail.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeBusMap({{ bus.latitude }}, {{ bus.longitude }}, {{ bus.id }});
+    });
+</script>
+{% endblock %}
