@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - CPUT ShuttleTracker{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <header class="dashboard-header">
+        <div>
+            <h1><i class="fas fa-bus"></i> Live Shuttle Tracking</h1>
+            <p class="subtitle">Real-time bus locations across all CPUT campuses</p>
+        </div>
+        <div class="campus-selector">
+            <select id="campusFilter" onchange="filterByCampus()">
+                <option value="">All Campuses</option>
+                {% for campus in campuses %}
+                <option value="{{ campus.code }}">{{ campus.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </header>
+    
+    <div class="bus-grid" id="busGrid">
+        <div class="loading">
+            <i class="fas fa-spinner fa-spin"></i> Loading active buses...
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
