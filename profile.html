@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - CPUT ShuttleTracker{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <h2>{{ current_user.full_name }}</h2>
+            <p class="student-number">{{ current_user.student_number }}</p>
+            <span class="campus-badge">
+                <i class="fas fa-university"></i>
+                {{ campus.name if campus else current_user.campus }}
+            </span>
+        </div>
+        
+        <div class="profile-stats">
+            <div class="stat-box">
+                <i class="fas fa-bus"></i>
+                <div class="number">0</div>
+                <div class="label">Trips Tracked</div>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-route"></i>
+                <div class="number">0</div>
+                <div class="label">Favorite Routes</div>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-clock"></i>
+                <div class="number">0</div>
+                <div class="label">Hours Saved</div>
+            </div>
+        </div>
+        
+        <div class="profile-details">
+            <h3>Account Information</h3>
+            <div class="detail-item">
+                <span class="label"><i class="fas fa-envelope"></i> Email</span>
+                <span class="value">{{ current_user.email }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label"><i class="fas fa-id-card"></i> Student Number</span>
+                <span class="value">{{ current_user.student_number }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label"><i class="fas fa-university"></i> Primary Campus</span>
+                <span class="value">{{ campus.name if campus else current_user.campus }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label"><i class="fas fa-calendar-alt"></i> Member Since</span>
+                <span class="value">{{ current_user.created_at.strftime('%B %Y') }}</span>
+            </div>
+        </div>
+        
+        <div class="profile-actions">
+            <a href="{{ url_for('dashboard') }}" class="btn-primary">
+                <i class="fas fa-home"></i> Back to Dashboard
+            </a>
+            <a href="{{ url_for('logout') }}" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
